@@ -1,3 +1,4 @@
+# print tic-tac-toe board on screen
 def print_board(board):
     print(" " + board["top_l"] + " | " + board["top_m"] + " | " +
           board["top_r"] + " ")
@@ -9,6 +10,7 @@ def print_board(board):
           board["bot_r"] + " ")
 
 
+# create function to check the winner
 def win_check(move: str) -> bool:
     """
     function to check either `o` or `x` win the game, by checking all horizontal, vertical and diagonal line
@@ -28,6 +30,7 @@ def win_check(move: str) -> bool:
         return True
 
 
+# create function for the game
 def game():
     """
     Start the tic-tac-toe game
@@ -36,6 +39,7 @@ def game():
     input()
 
     turn = "x"
+    # print all available moves every time the player takes turn
     while True:
         available_moves = []
         print_board(move_spaces)
@@ -47,6 +51,7 @@ def game():
 
         print(", ".join(available_moves))
 
+        # take input as player moves, print invalid if moves not available
         player_move = input()
         if player_move.casefold() in available_moves:
             move_spaces[player_move.casefold()] = turn
@@ -54,11 +59,13 @@ def game():
             print("Invalid moves")
             continue
 
+        # change side every time player makes a move
         if turn == "x":
             turn = "o"
         else:
             turn = "x"
 
+        # check winner using earlier function
         if win_check("x"):
             print_board(move_spaces)
             print("X player win!")
@@ -72,14 +79,17 @@ def game():
             break
 
 
+# start the game in loop
 while True:
+    # reset move spaces everytime new game start
     move_spaces = {"top_l": " ", "top_m": " ", "top_r": " ",
                    "mid_l": " ", "mid_m": " ", "mid_r": " ",
                    "bot_l": " ", "bot_m": " ", "bot_r": " "}
 
     game()
 
-    restart = input("Play again? Y/N\n")
+    # ask player either they want to restart the game
+    restart = input("Play again? Y for yes, any key to exit\n")
     if restart.casefold() == "y":
         continue
     else:
